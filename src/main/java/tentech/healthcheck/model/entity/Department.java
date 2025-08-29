@@ -23,7 +23,7 @@ public class Department {
     private Services serviceName;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "department")
-    private List<Doctor> doctors;
+    private List<Doctor> doctor;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "department")
     private List<Appointment> appointments;

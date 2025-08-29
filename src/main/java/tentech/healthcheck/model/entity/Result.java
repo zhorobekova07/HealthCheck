@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "result")
+@Table(name = "results")
 @Setter
 @Getter
 public class Result {
@@ -22,6 +22,6 @@ public class Result {
     private LocalDateTime createdDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "result_id")
     private Department department;
 }

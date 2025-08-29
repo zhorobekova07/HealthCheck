@@ -37,8 +37,8 @@ public class Appointment {
     private Status status;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctors;
+    @JoinColumn(name = "appointment_id")
+    private Doctor doctor;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "appointments_users",

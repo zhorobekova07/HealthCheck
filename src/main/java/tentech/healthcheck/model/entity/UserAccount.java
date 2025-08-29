@@ -4,10 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import tentech.healthcheck.enums.Role;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
-@Table(name = "application_request")
+@Table(name = "user_accounts")
 @Setter
 @Getter
 public class UserAccount {
@@ -26,6 +25,7 @@ public class UserAccount {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER,mappedBy = "userAccount")
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_account_id")
     private User user;
 }

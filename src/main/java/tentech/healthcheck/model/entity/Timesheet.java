@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "timesheet")
+@Table(name = "timesheets")
 @Setter
 @Getter
 public class Timesheet {
@@ -24,6 +24,6 @@ public class Timesheet {
     private boolean isBooked;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "timesheet_id")
     private Doctor doctor;
 }

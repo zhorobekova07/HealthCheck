@@ -20,7 +20,6 @@ public class User {
     private int phoneNumber;
 
 
-    @OneToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "user_account_id")
+    @OneToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},mappedBy = "userAccount")
     private UserAccount userAccount;
 }
