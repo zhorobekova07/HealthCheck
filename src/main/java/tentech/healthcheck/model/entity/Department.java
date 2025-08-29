@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tentech.healthcheck.enums.Services;
-
 import java.util.List;
 
 @Entity

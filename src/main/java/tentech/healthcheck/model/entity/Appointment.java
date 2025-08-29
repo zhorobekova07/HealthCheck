@@ -8,7 +8,6 @@ import lombok.Setter;
 import tentech.healthcheck.enums.Days;
 import tentech.healthcheck.enums.Services;
 import tentech.healthcheck.enums.Status;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -46,6 +45,7 @@ public class Appointment {
             joinColumns = @JoinColumn(name = "appointment_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "department_id")
     private Department department;
