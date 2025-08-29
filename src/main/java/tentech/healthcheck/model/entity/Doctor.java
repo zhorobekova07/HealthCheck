@@ -44,6 +44,6 @@ public class Doctor {
     private List<Timesheet> timesheets;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 }

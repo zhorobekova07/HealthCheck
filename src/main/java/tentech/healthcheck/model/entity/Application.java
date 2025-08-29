@@ -22,6 +22,8 @@ public class Application {
 
     private LocalDate creatDate;
 
+    private boolean process;
+
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
 }

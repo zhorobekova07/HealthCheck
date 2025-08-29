@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "schedules")
@@ -30,4 +31,7 @@ public class Schedule {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, mappedBy = "schedule")
     private Doctor doctor;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},mappedBy = "schedule")
+    private List<Timesheet> timesheets;
 }
