@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import tentech.healthcheck.enums.Days;
-import tentech.healthcheck.enums.Services;
-import tentech.healthcheck.enums.Status;
+import tentech.healthcheck.model.enums.Days;
+import tentech.healthcheck.model.enums.Services;
+import tentech.healthcheck.model.enums.Status;
 import java.time.LocalDate;
 import java.time.LocalTime;
 

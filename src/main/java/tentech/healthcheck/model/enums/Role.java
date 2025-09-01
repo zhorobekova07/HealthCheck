@@ -1,4 +1,4 @@
-package tentech.healthcheck.enums;
+package tentech.healthcheck.model.enums;
 
 public enum Role {
     ADMIN,
