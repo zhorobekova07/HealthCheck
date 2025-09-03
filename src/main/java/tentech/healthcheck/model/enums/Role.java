@@ -2,5 +2,9 @@ package tentech.healthcheck.model.enums;
 
 public enum Role {
     ADMIN,
-    USER
+    USER;
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }
