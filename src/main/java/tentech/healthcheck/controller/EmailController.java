@@ -9,28 +9,25 @@ import tentech.healthcheck.model.dto.EmailRequest;
 import tentech.healthcheck.serviceImpl.EmailService;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/email")
 public class EmailController {
 
     @Autowired
     private EmailService emailService;
 
-    // Sending a simple Email
     @PostMapping("/sendMail")
     public String
-    sendMail(@RequestBody EmailRequest details)
-    {
+    sendMail(@RequestBody EmailRequest details) {
         String status
                 = emailService.sendSimpleMail(details);
         return status;
     }
+
     @PostMapping("/sendMailWithAttachment")
     public String sendMailWithAttachment(
-            @RequestBody EmailRequest details)
-    {
+            @RequestBody EmailRequest details) {
         String status
                 = emailService.sendMailWithAttachment(details);
-
         return status;
     }
 }
