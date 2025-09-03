@@ -27,7 +27,6 @@ public class EmailServiceImpl implements EmailService {
     @Value("${spring.mail.username}")
     private String sender;
 
-    // Method 1
     // To send a simple email
     public String sendSimpleMail(EmailRequest details) {
 
@@ -55,7 +54,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    // Method 2
+
     // To send an email with attachment
     public String
     sendMailWithAttachment(EmailRequest details) {
@@ -79,7 +78,7 @@ public class EmailServiceImpl implements EmailService {
             // Adding the attachment
             FileSystemResource file
                     = new FileSystemResource(
-                    new File(details.getAttachment()));
+                            new File(details.getAttachment()));
 
             mimeMessageHelper.addAttachment(
                     file.getFilename(), file);
