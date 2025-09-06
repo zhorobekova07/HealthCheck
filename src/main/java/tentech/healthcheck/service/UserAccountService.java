@@ -18,19 +18,18 @@ public class UserAccountService {
     private final UserAccountMapper userAccountMapper;
 
 
-
     public UserAccountResponse findById(Long id) {
         UserAccount userAccount = userAccountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id " + id));
         return userAccountMapper.mapToResponse(userAccount);
     }
 
-    public List<UserAccountResponse> findAll(){
-        List<UserAccount> userAccounts=userAccountRepository.findAll();
+    public List<UserAccountResponse> findAll() {
+        List<UserAccount> userAccounts = userAccountRepository.findAll();
         return userAccountMapper.mapToList(userAccounts);
     }
 
-    public void deleteById (Long id){
+    public void deleteById(Long id) {
         userAccountRepository.deleteById(id);
     }
 }

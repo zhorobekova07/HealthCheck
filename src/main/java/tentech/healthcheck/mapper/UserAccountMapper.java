@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserAccountMapper {
 
-    public UserAccountResponse mapToResponse(UserAccount userAccount){
+    public UserAccountResponse mapToResponse(UserAccount userAccount) {
         return UserAccountResponse.builder()
                 .id(userAccount.getId())
                 .email(userAccount.getEmail())
@@ -25,8 +25,8 @@ public class UserAccountMapper {
                 .build();
     }
 
-    public UserAccount mapToEntity(UserAccountRequest userAccountRequest){
-        UserAccount userAccount=new UserAccount();
+    public UserAccount mapToEntity(UserAccountRequest userAccountRequest) {
+        UserAccount userAccount = new UserAccount();
         userAccount.setEmail(userAccountRequest.getEmail());
         userAccount.setPhoneNumber(userAccountRequest.getPhoneNumber());
         userAccount.setPassword(userAccountRequest.getPassword());
@@ -36,9 +36,9 @@ public class UserAccountMapper {
         return userAccount;
     }
 
-    public List<UserAccountResponse> mapToList(List<UserAccount> userAccounts){
-        List<UserAccountResponse> userAccountResponses=new ArrayList<>();
-        for (UserAccount userAcc: userAccounts){
+    public List<UserAccountResponse> mapToList(List<UserAccount> userAccounts) {
+        List<UserAccountResponse> userAccountResponses = new ArrayList<>();
+        for (UserAccount userAcc : userAccounts) {
             userAccountResponses.add(mapToResponse(userAcc));
         }
         return userAccountResponses;
