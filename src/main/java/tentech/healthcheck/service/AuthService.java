@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 
 public class AuthService {
-    private final AuthService authService;
+//    private final AuthService authService;
     private final LoginMapper loginMapper;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;

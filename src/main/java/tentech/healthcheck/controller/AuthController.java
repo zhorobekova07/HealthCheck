@@ -22,7 +22,7 @@ public class AuthController {
         this.authService = authService;
     }
     @PostMapping("/login")
-    public LoginResponse save(LoginRequest loginRequest) {
+    public LoginResponse save(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);
     }
     @PostMapping("/signup")
