@@ -1,14 +1,14 @@
 package tentech.healthcheck.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tentech.healthcheck.mapper.UserAccountMapper;
 import tentech.healthcheck.model.dto.UserAccountResponse;
 import tentech.healthcheck.model.entity.UserAccount;
 import tentech.healthcheck.repository.UserAccountRepository;
-import tentech.healthcheck.security.jwt.JwtTokenUtil;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +17,17 @@ public class UserAccountService {
     private final UserAccountRepository userAccountRepository;
     private final UserAccountMapper userAccountMapper;
 
+
+//    public List<UserAccountResponse> searchAndPagination(String text, int page, int size) {
+//        String name = text == null ? "" : text;
+//        Pageable pageable= PageRequest.of(page-1,size);
+//List<UserAccount> userAccounts=userAccountRepository.searchAndPagination(name.toUpperCase(),pageable);
+//        List<UserAccountResponse> responses = new ArrayList<>();
+//        for (UserAccount userAccount : userAccounts) {
+//            responses.add(userAccountMapper.mapToResponse(userAccount));
+//        }
+//        return responses;
+//    }
 
     public UserAccountResponse findById(Long id) {
         UserAccount userAccount = userAccountRepository.findById(id)
@@ -31,5 +42,16 @@ public class UserAccountService {
 
     public void deleteById(Long id) {
         userAccountRepository.deleteById(id);
+    }
+
+    public List<UserAccountResponse> searchAndPagination(String text, int page, int size) {
+        String name = text == null ? "" : text;
+        Pageable pageable = PageRequest.of(page - 1, size);
+        List<UserAccount> users = userAccountRepository.searchAndPagination(name.toUpperCase(), pageable);
+        List<UserAccountResponse> responses = new ArrayList<>();
+        for (UserAccount userAcc : users) {
+            responses.add(userAccountMapper.mapToResponse(userAcc));
+        }
+        return responses;
     }
 }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tentech.healthcheck.model.dto.UserAccountResponse;
 import tentech.healthcheck.service.UserAccountService;
-
 import java.util.List;
 
 @RestController
@@ -15,6 +14,13 @@ public class UserAccountController {
     @Autowired
     public UserAccountController(UserAccountService userAccountService) {
         this.userAccountService = userAccountService;
+    }
+
+    @GetMapping("/search")
+    public List<UserAccountResponse> searchAndPagination(@RequestParam(name = "text", required = false) String text,
+                                                         @RequestParam int page,
+                                                         @RequestParam int size) {
+        return userAccountService.searchAndPagination(text, page, size);
     }
 
     @GetMapping("/findById/{id}")
