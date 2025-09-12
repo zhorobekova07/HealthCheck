@@ -21,13 +21,13 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-    @PostMapping("/login")
-    public LoginResponse save(@RequestBody LoginRequest loginRequest) {
-        return authService.login(loginRequest);
-    }
     @PostMapping("/signup")
     public UserAccountResponse signup(@RequestBody UserAccountRequest request) {
         return authService.signUp(request);
     }
 
+    @PostMapping("/login")
+    public LoginResponse save(@RequestBody LoginRequest loginRequest) {
+        return authService.login(loginRequest);
+    }
 }

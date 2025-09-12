@@ -15,7 +15,6 @@ public class SignUpMapper {
 
     public UserAccount mapToEntity(UserAccountRequest userAccountRequest) {
         UserAccount userAccount = new UserAccount();
-//        userAccount.setId(userAccountRequest.getUser().getId());
         userAccount.setEmail(userAccountRequest.getEmail());
         userAccount.setPassword(userAccountRequest.getPassword());
         userAccount.setRole(userAccount.getRole());

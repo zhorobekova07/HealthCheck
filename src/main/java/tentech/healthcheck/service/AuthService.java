@@ -14,13 +14,11 @@ import tentech.healthcheck.model.entity.UserAccount;
 import tentech.healthcheck.repository.UserAccountRepository;
 import tentech.healthcheck.security.jwt.JwtTokenUtil;
 
-import java.time.LocalDate;
-
 @Service
 @RequiredArgsConstructor
 
 public class AuthService {
-//    private final AuthService authService;
+
     private final LoginMapper loginMapper;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
