@@ -3,18 +3,22 @@ package tentech.healthcheck.mapper;
 import org.springframework.stereotype.Component;
 import tentech.healthcheck.model.dto.LoginRequest;
 import tentech.healthcheck.model.dto.LoginResponse;
+import tentech.healthcheck.model.dto.UserAccountResponse;
 import tentech.healthcheck.model.entity.UserAccount;
 
-@Component
+import java.util.ArrayList;
+import java.util.List;
 
+@Component
 public class LoginMapper {
-    public LoginResponse mapToResponse(String token,UserAccount userAccount) {
+
+    public LoginResponse mapToResponse(String token, UserAccount userAccount) {
         return LoginResponse.builder()
                 .token(token)
-                .roleName(String.valueOf(userAccount.getRole())).build();
-
-
+                .roleName(userAccount.getRole())
+                .build();
     }
+
     public UserAccount mapToEntity(LoginRequest loginRequest) {
         UserAccount userAccount = new UserAccount();
         userAccount.setEmail(loginRequest.getEmail());

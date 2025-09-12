@@ -58,14 +58,14 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/api/signup", "/api/login").permitAll()
-//                            .requestMatchers("/api/user").hasRole("ADMIN")
+                    authorize.requestMatchers("/api/auth/**").permitAll()
+                            .requestMatchers("/api/auth/login").hasAuthority("ADMIN")
 //                            .requestMatchers("/api/user/{id}").hasAuthority("ADMIN")
-                            .requestMatchers(
-                                    "/v3/api-docs/",
-                                    "/swagger-ui/",
-                                    "/swagger-ui.html"
-                            ).permitAll()
+//                            .requestMatchers(
+//                                    "/v3/api-docs/",
+//                                    "/swagger-ui/",
+//                                    "/swagger-ui.html"
+//                            ).permitAll()
 //                           .requestMatchers("/api/genre/", "/api/app/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })

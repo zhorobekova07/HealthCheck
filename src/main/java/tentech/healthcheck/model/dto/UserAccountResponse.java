@@ -12,8 +12,6 @@ import java.time.LocalDate;
 public class UserAccountResponse {
     private Long id;
     private String email;
-    private String password;
-    private String confirmPassword;
     private LocalDate localDate;
     private Role role;
     private User user;

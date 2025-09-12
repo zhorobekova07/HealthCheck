@@ -9,7 +9,7 @@ import tentech.healthcheck.model.entity.UserAccount;
 
 @Repository
     public interface UserAccountRepository extends JpaRepository <UserAccount, Long> {
-    @Query("select user from UserAccount user where user.email=:email")
+    @Query("select user_account from UserAccount user_account where user_account.email=:email")
     UserAccount findByEmail(@Param("email") String email);
 
 }

@@ -1,5 +1,7 @@
 package tentech.healthcheck.model.dto;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class UserAccountRequest {
     private String email;
     private String password;
     private String confirmPassword;
-    private LocalDate localDate;
+    @Enumerated(value = EnumType.STRING)
     private Role role;
     private User user;
 
