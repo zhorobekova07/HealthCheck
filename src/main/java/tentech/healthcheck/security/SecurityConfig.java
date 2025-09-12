@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/api/auth/**").permitAll()
-                            .requestMatchers("/api/auth/login").hasAuthority("ADMIN")
+//                            .requestMatchers("/api/auth/login").hasAuthority("ADMIN")
 //                            .requestMatchers("/api/user/{id}").hasAuthority("ADMIN")
 //                            .requestMatchers(
 //                                    "/v3/api-docs/",

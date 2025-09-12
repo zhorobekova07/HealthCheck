@@ -12,7 +12,7 @@ import tentech.healthcheck.model.dto.UserAccountResponse;
 import tentech.healthcheck.service.AuthService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 
 public class AuthController {
 
