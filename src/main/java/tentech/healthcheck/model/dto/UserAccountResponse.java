@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class UserAccountResponse {
     private Long id;
     private String email;
+    private Long phoneNumber;
     private LocalDate localDate;
     private Role role;
     private UserResponse user;

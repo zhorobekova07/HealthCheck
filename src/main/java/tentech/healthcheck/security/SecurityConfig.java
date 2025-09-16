@@ -10,9 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -21,8 +19,6 @@ import tentech.healthcheck.security.jwt.JwtTokenFilter;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-
-
 public class SecurityConfig {
 
     private final JwtTokenFilter jwtFilter;
@@ -34,15 +30,8 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return null;
-            }
-        };
+        return new UserDetailsServiceImpl();
     }
-
-//    }
 
     @Bean
     public AuthenticationManager authenticationProvider() {
@@ -58,20 +47,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/api/auth/**").permitAll()
-//                            .requestMatchers("/api/auth/login").hasAuthority("ADMIN")
-//                            .requestMatchers("/api/user/{id}").hasAuthority("ADMIN")
-//                            .requestMatchers(
-//                                    "/v3/api-docs/",
-//                                    "/swagger-ui/",
-//                                    "/swagger-ui.html"
-//                            ).permitAll()
-//                           .requestMatchers("/api/genre/", "/api/app/**").hasRole("ADMIN")
+                    authorize.requestMatchers("/api/auth/sign-up", "/api/auth/login").permitAll()
+                            .requestMatchers("/api/auth/**").hasRole("ADMIN")
+                            .requestMatchers(
+                                    "/v3/api-docs/",
+                                    "/swagger-ui/",
+                                    "/swagger-ui.html"
+                            ).permitAll()
                             .anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
-
-

@@ -1,7 +1,6 @@
 package tentech.healthcheck.mapper;
 
 import org.springframework.stereotype.Component;
-import tentech.healthcheck.model.dto.LoginRequest;
 import tentech.healthcheck.model.dto.LoginResponse;
 import tentech.healthcheck.model.entity.UserAccount;
 
@@ -14,12 +13,4 @@ public class LoginMapper {
                 .roleName(userAccount.getRole())
                 .build();
     }
-
-    public UserAccount mapToEntity(LoginRequest loginRequest) {
-        UserAccount userAccount = new UserAccount();
-        userAccount.setEmail(loginRequest.getEmail());
-        userAccount.setPassword(loginRequest.getPassword());
-        return userAccount;
-    }
-
 }

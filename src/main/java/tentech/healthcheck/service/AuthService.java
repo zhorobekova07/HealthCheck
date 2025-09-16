@@ -21,7 +21,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class AuthService {
 
     private final LoginMapper loginMapper;
@@ -43,7 +42,7 @@ public class AuthService {
         if (user1.isPresent()) {
             throw new RuntimeException("User with this mail already exists in the database");
         }
-        if (userAccountRequest.getPassword().matches(("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"))){
+        if (userAccountRequest.getPassword().matches(("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*._-]).{8,}$"))){
             userAccount.setPassword(passwordEncoder.encode(userAccountRequest.getPassword()));
         }
         else {

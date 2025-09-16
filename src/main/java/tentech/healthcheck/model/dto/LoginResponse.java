@@ -8,10 +8,8 @@ import tentech.healthcheck.model.enums.Role;
 @Setter
 @Getter
 @Builder
-
 public class LoginResponse {
     private String token;
     private Role roleName;
-
 }
 

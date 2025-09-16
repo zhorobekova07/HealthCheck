@@ -16,9 +16,9 @@ public class SignUpMapper {
         UserAccount userAccount = new UserAccount();
         userAccount.setEmail(userAccountRequest.getEmail());
         userAccount.setPassword(userAccountRequest.getPassword());
+        userAccount.setPhoneNumber(userAccountRequest.getPhoneNumber());
         userAccount.setRole(userAccount.getRole());
         userAccount.setDate(LocalDate.now());
-        userAccount.setUser(userAccountRequest.getUser());
         return userAccount;
     }
     public UserAccountResponse mapToResponse(UserAccount userAccount) {
@@ -26,7 +26,7 @@ public class SignUpMapper {
         userAccountResponse.setId(userAccount.getId());
         userAccountResponse.setEmail(userAccount.getEmail());
         userAccountResponse.setRole(userAccount.getRole());
-        userAccountResponse.setUser(userAccount.getUser());
+        userAccountResponse.setPhoneNumber(userAccount.getPhoneNumber());
         userAccountResponse.setLocalDate(userAccount.getDate());
         return userAccountResponse;
     }

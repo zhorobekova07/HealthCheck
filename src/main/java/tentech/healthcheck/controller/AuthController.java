@@ -17,17 +17,19 @@ import tentech.healthcheck.service.AuthService;
 public class AuthController {
 
     private final AuthService authService;
+
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-    @PostMapping("/signup")
+
+    @PostMapping("/sign-up")
     public UserAccountResponse signup(@RequestBody UserAccountRequest request) {
         return authService.signUp(request);
     }
 
     @PostMapping("/login")
-    public LoginResponse save(@RequestBody LoginRequest loginRequest) {
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);
     }
 }
