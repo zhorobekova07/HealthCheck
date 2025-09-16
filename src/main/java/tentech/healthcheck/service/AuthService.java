@@ -3,6 +3,7 @@ package tentech.healthcheck.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tentech.healthcheck.mapper.LoginMapper;
 import tentech.healthcheck.mapper.SignUpMapper;
@@ -11,8 +12,12 @@ import tentech.healthcheck.model.dto.LoginResponse;
 import tentech.healthcheck.model.dto.UserAccountRequest;
 import tentech.healthcheck.model.dto.UserAccountResponse;
 import tentech.healthcheck.model.entity.UserAccount;
+import tentech.healthcheck.model.enums.Role;
 import tentech.healthcheck.repository.UserAccountRepository;
 import tentech.healthcheck.security.jwt.JwtTokenUtil;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,11 +29,28 @@ public class AuthService {
     private final JwtTokenUtil jwtTokenUtil;
     private final UserAccountRepository userAccountRepository;
     private final SignUpMapper  signUpMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
+
     public UserAccountResponse signUp(UserAccountRequest userAccountRequest) {
         UserAccount userAccount = signUpMapper.mapToEntity(userAccountRequest);
+        if (findAll().isEmpty()){
+            userAccount.setRole(Role.ADMIN);
+        }
+        else {
+            userAccount.setRole(Role.USER);
+        }
+        Optional<UserAccount> user1 = Optional.ofNullable(userAccountRepository.findByEmail(userAccountRequest.getEmail()));
+        if (user1.isPresent()) {
+            throw new RuntimeException("User with this mail already exists in the database");
+        }
+        if (userAccountRequest.getPassword().matches(("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"))){
+            userAccount.setPassword(passwordEncoder.encode(userAccountRequest.getPassword()));
+        }
+        else {
+            throw new RuntimeException("invalid password");
+        }
         userAccountRepository.save(userAccount);
         return signUpMapper.mapToResponse(userAccount);
-
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
@@ -38,5 +60,9 @@ public class AuthService {
         return loginMapper.mapToResponse(jwt, userAccount);
     }
 
+    public List<UserAccountResponse> findAll() {
+        List<UserAccount> userAccounts = userAccountRepository.findAll();
+        return signUpMapper.mapToList(userAccounts);
+    }
 }
 
