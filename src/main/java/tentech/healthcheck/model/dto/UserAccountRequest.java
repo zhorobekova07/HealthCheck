@@ -19,7 +19,6 @@ public class UserAccountRequest {
     private String confirmPassword;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-    private User user;
-
+    private Long userId;
 }
 

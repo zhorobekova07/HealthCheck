@@ -2,7 +2,6 @@ package tentech.healthcheck.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import tentech.healthcheck.model.entity.User;
 import tentech.healthcheck.model.enums.Role;
 
 import java.time.LocalDate;
@@ -14,5 +13,5 @@ public class UserAccountResponse {
     private String email;
     private LocalDate localDate;
     private Role role;
-    private User user;
+    private UserResponse user;
 }
