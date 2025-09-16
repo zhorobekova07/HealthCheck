@@ -18,5 +18,4 @@ public class UserAccountRequest {
     private LocalDate date;
     private Role role;
     private User user;
-
 }

@@ -12,16 +12,12 @@ import tentech.healthcheck.service.AuthService;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-
 public class AuthController {
 
     private final AuthService authService;
 
     @PostMapping("/sign-up")
-
     public UserAccountResponse save(@RequestBody UserAccountRequest userAccountRequest) {
         return authService.signUp(userAccountRequest);
     }
-
-
 }
