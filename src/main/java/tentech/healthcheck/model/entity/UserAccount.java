@@ -1,7 +1,9 @@
 package tentech.healthcheck.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tentech.healthcheck.model.enums.Role;
 
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 @Table(name = "user_accounts")
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

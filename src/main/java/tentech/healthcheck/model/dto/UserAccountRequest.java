@@ -6,9 +6,10 @@ import tentech.healthcheck.model.entity.User;
 import tentech.healthcheck.model.enums.Role;
 import java.time.LocalDate;
 
-@Setter
 @Getter
+@Setter
 public class UserAccountRequest {
+
     private String email;
     private Long phoneNumber;
     private String password;
@@ -17,5 +18,4 @@ public class UserAccountRequest {
     private LocalDate date;
     private Role role;
     private User user;
-
 }
