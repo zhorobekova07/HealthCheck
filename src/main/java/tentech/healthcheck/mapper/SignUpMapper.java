@@ -1,5 +1,6 @@
 package tentech.healthcheck.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import tentech.healthcheck.model.dto.UserAccountRequest;
 import tentech.healthcheck.model.dto.UserAccountResponse;
@@ -10,7 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class SignUpMapper {
+
+    public UserAccountResponse mapToResponse(UserAccount userAccount) {
+        UserAccountResponse userAccountResponse = new UserAccountResponse();
+        userAccountResponse.setId(userAccount.getId());
+        userAccountResponse.setEmail(userAccount.getEmail());
+        userAccountResponse.setRole(userAccount.getRole());
+        userAccountResponse.setPhoneNumber(userAccount.getPhoneNumber());
+        userAccountResponse.setLocalDate(userAccount.getDate());
+        return userAccountResponse;
+    }
 
     public UserAccount mapToEntity(UserAccountRequest userAccountRequest) {
         UserAccount userAccount = new UserAccount();
@@ -20,15 +32,6 @@ public class SignUpMapper {
         userAccount.setRole(userAccount.getRole());
         userAccount.setDate(LocalDate.now());
         return userAccount;
-    }
-    public UserAccountResponse mapToResponse(UserAccount userAccount) {
-        UserAccountResponse userAccountResponse = new UserAccountResponse();
-        userAccountResponse.setId(userAccount.getId());
-        userAccountResponse.setEmail(userAccount.getEmail());
-        userAccountResponse.setRole(userAccount.getRole());
-        userAccountResponse.setPhoneNumber(userAccount.getPhoneNumber());
-        userAccountResponse.setLocalDate(userAccount.getDate());
-        return userAccountResponse;
     }
 
     public List<UserAccountResponse> mapToList(List<UserAccount> userAccounts) {

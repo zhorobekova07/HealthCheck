@@ -14,5 +14,5 @@ public class UserAccountResponse {
     private Long phoneNumber;
     private LocalDate localDate;
     private Role role;
-    private UserResponse user;
+//    private Long userId;
 }
