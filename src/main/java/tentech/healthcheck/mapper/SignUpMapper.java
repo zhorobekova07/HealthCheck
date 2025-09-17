@@ -1,24 +1,27 @@
 package tentech.healthcheck.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import tentech.healthcheck.model.dto.UserAccountRequest;
 import tentech.healthcheck.model.dto.UserAccountResponse;
 import tentech.healthcheck.model.entity.UserAccount;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class AuthMapper {
+@RequiredArgsConstructor
+public class SignUpMapper {
 
     public UserAccountResponse mapToResponse(UserAccount userAccount) {
-        return UserAccountResponse.builder()
-                .id(userAccount.getId())
-                .role(userAccount.getRole())
-                .email(userAccount.getEmail())
-                .phoneNumber(userAccount.getPhoneNumber())
-                .localDate(LocalDate.now())
-                .build();
+        UserAccountResponse userAccountResponse = new UserAccountResponse();
+        userAccountResponse.setId(userAccount.getId());
+        userAccountResponse.setEmail(userAccount.getEmail());
+        userAccountResponse.setRole(userAccount.getRole());
+        userAccountResponse.setPhoneNumber(userAccount.getPhoneNumber());
+        userAccountResponse.setLocalDate(userAccount.getDate());
+        return userAccountResponse;
     }
 
     public UserAccount mapToEntity(UserAccountRequest userAccountRequest) {
