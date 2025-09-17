@@ -5,8 +5,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import tentech.healthcheck.mapper.AuthMapper;
 import tentech.healthcheck.mapper.LoginMapper;
-import tentech.healthcheck.mapper.SignUpMapper;
 import tentech.healthcheck.model.dto.LoginRequest;
 import tentech.healthcheck.model.dto.LoginResponse;
 import tentech.healthcheck.model.dto.UserAccountRequest;
@@ -27,11 +27,11 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserAccountRepository userAccountRepository;
-    private final SignUpMapper  signUpMapper;
+    private final AuthMapper authMapper;
     private final BCryptPasswordEncoder passwordEncoder;
 
     public UserAccountResponse signUp(UserAccountRequest userAccountRequest) {
-        UserAccount userAccount = signUpMapper.mapToEntity(userAccountRequest);
+        UserAccount userAccount = authMapper.mapToEntity(userAccountRequest);
         if (findAll().isEmpty()){
             userAccount.setRole(Role.ADMIN);
         }
@@ -49,7 +49,7 @@ public class AuthService {
             throw new RuntimeException("invalid password");
         }
         userAccountRepository.save(userAccount);
-        return signUpMapper.mapToResponse(userAccount);
+        return authMapper.mapToResponse(userAccount);
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
@@ -61,7 +61,7 @@ public class AuthService {
 
     public List<UserAccountResponse> findAll() {
         List<UserAccount> userAccounts = userAccountRepository.findAll();
-        return signUpMapper.mapToList(userAccounts);
+        return authMapper.mapToList(userAccounts);
     }
 }
 

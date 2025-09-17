@@ -1,13 +1,13 @@
 package tentech.healthcheck.model.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 import tentech.healthcheck.model.enums.Role;
 
 import java.time.LocalDate;
 
-@Setter
-@Getter
+@Data
+@Builder
 public class UserAccountResponse {
     private Long id;
     private String email;
