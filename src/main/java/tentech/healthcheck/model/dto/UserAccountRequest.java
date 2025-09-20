@@ -1,21 +1,23 @@
 package tentech.healthcheck.model.dto;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import tentech.healthcheck.model.entity.User;
 import tentech.healthcheck.model.enums.Role;
-import java.time.LocalDate;
 
-@Getter
-@Setter
+
+@Data
+@Builder
 public class UserAccountRequest {
-
     private String email;
-    private Long phoneNumber;
     private String password;
-    private String newPassword;
     private String confirmPassword;
-    private LocalDate date;
+    private Long phoneNumber;
+    @Enumerated(value = EnumType.STRING)
     private Role role;
-    private User user;
+    private Long userId;
 }
+
