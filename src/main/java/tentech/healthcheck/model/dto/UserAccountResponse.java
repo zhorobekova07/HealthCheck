@@ -13,6 +13,9 @@ public class UserAccountResponse {
     private String email;
     private Long phoneNumber;
     private LocalDate localDate;
+    private String password;
+    private String newPassword;
+    private String confirmPassword;
     private Role role;
-//    private Long userId;
+    private Long userId;
 }

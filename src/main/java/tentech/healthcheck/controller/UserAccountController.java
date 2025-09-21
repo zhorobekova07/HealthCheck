@@ -15,13 +15,13 @@ public class UserAccountController {
     public UserAccountController(UserAccountService userAccountService) {
         this.userAccountService = userAccountService;
     }
-
-    @GetMapping("/search")
-    public List<UserAccountResponse> searchAndPagination(@RequestParam(name = "text", required = false) String text,
-                                                         @RequestParam int page,
-                                                         @RequestParam int size) {
-        return userAccountService.searchAndPagination(text, page, size);
-    }
+//
+//    @GetMapping("/search")
+//    public List<UserAccountResponse> searchAndPagination(@RequestParam(name = "text", required = false) String text,
+//                                                         @RequestParam int page,
+//                                                         @RequestParam int size) {
+//        return userAccountService.searchAndPagination(text, page, size);
+//    }
 
     @GetMapping("/findById/{id}")
     public UserAccountResponse findById(@PathVariable("id") Long id) {

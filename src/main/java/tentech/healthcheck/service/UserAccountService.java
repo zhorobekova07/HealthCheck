@@ -17,18 +17,6 @@ public class UserAccountService {
     private final UserAccountRepository userAccountRepository;
     private final UserAccountMapper userAccountMapper;
 
-
-//    public List<UserAccountResponse> searchAndPagination(String text, int page, int size) {
-//        String name = text == null ? "" : text;
-//        Pageable pageable= PageRequest.of(page-1,size);
-//List<UserAccount> userAccounts=userAccountRepository.searchAndPagination(name.toUpperCase(),pageable);
-//        List<UserAccountResponse> responses = new ArrayList<>();
-//        for (UserAccount userAccount : userAccounts) {
-//            responses.add(userAccountMapper.mapToResponse(userAccount));
-//        }
-//        return responses;
-//    }
-
     public UserAccountResponse findById(Long id) {
         UserAccount userAccount = userAccountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id " + id));
@@ -44,14 +32,14 @@ public class UserAccountService {
         userAccountRepository.deleteById(id);
     }
 
-    public List<UserAccountResponse> searchAndPagination(String text, int page, int size) {
-        String name = text == null ? "" : text;
-        Pageable pageable = PageRequest.of(page - 1, size);
-        List<UserAccount> users = userAccountRepository.searchAndPagination(name.toUpperCase(), pageable);
-        List<UserAccountResponse> responses = new ArrayList<>();
-        for (UserAccount userAcc : users) {
-            responses.add(userAccountMapper.mapToResponse(userAcc));
-        }
-        return responses;
-    }
+//    public List<UserAccountResponse> searchAndPagination(String text, int page, int size) {
+//        String name = text == null ? "" : text;
+//        Pageable pageable = PageRequest.of(page - 1, size);
+//        List<UserAccount> users = userAccountRepository.searchAndPagination(name.toUpperCase(), pageable);
+//        List<UserAccountResponse> responses = new ArrayList<>();
+//        for (UserAccount userAcc : users) {
+//            responses.add(userAccountMapper.mapToResponse(userAcc));
+//        }
+//        return responses;
+//    }
 }

@@ -21,7 +21,7 @@ public class UserAccountMapper {
                 .password(userAccount.getPassword())
                 .newPassword(userAccount.getNewPassword())
                 .confirmPassword(userAccount.getConfirmPassword())
-                .date(userAccount.getDate())
+                .localDate(userAccount.getDate())
                 .build();
     }
 
@@ -32,7 +32,7 @@ public class UserAccountMapper {
         userAccount.setPassword(userAccountRequest.getPassword());
         userAccount.setNewPassword(userAccountRequest.getNewPassword());
         userAccount.setConfirmPassword(userAccountRequest.getConfirmPassword());
-        userAccount.setDate(userAccountRequest.getDate());
+        userAccount.setDate(userAccountRequest.getLocalDate());
         return userAccount;
     }
 
