@@ -32,14 +32,14 @@ public class UserAccountService {
         userAccountRepository.deleteById(id);
     }
 
-//    public List<UserAccountResponse> searchAndPagination(String text, int page, int size) {
-//        String name = text == null ? "" : text;
-//        Pageable pageable = PageRequest.of(page - 1, size);
-//        List<UserAccount> users = userAccountRepository.searchAndPagination(name.toUpperCase(), pageable);
-//        List<UserAccountResponse> responses = new ArrayList<>();
-//        for (UserAccount userAcc : users) {
-//            responses.add(userAccountMapper.mapToResponse(userAcc));
-//        }
-//        return responses;
-//    }
+    public List<UserAccountResponse> searchAndPagination(String text, int page, int size) {
+        String name = text == null ? "" : text;
+        Pageable pageable = PageRequest.of(page - 1, size);
+        List<UserAccount> users = userAccountRepository.searchAndPagination(name.toUpperCase(), pageable);
+        List<UserAccountResponse> responses = new ArrayList<>();
+        for (UserAccount userAcc : users) {
+            responses.add(userAccountMapper.mapToResponse(userAcc));
+        }
+        return responses;
+    }
 }
