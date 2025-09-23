@@ -35,6 +35,9 @@ public class UserAccount implements UserDetails {
 
     private LocalDate date;
 
+    @Column(name = "reset_code")
+    private String resetCode;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
