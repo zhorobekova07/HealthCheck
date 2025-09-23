@@ -32,5 +32,4 @@ public class UserAccountService {
         userAccountRepository.deleteById(id);
     }
 
-
 }

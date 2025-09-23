@@ -49,9 +49,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/api/auth/sign-up", "/api/auth/login", "/api/user/save", "/api/contact/save").permitAll()
                             .requestMatchers("/api/auth/**").hasRole("ADMIN")
-                            .requestMatchers("/api/userAccount/findById/**").permitAll()
-                            .requestMatchers("/api/userAccount/findAll/**").permitAll()
-                            .requestMatchers("/api/auth/deleteById/**").permitAll()
                             .requestMatchers(
                                     "/v3/api-docs/**",
                                     "/swagger-ui/**",

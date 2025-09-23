@@ -18,9 +18,8 @@ public class UserAccountMapper {
                 .id(userAccount.getId())
                 .email(userAccount.getEmail())
                 .phoneNumber(userAccount.getPhoneNumber())
-                .password(userAccount.getPassword())
-                .newPassword(userAccount.getNewPassword())
-                .confirmPassword(userAccount.getConfirmPassword())
+                .role(userAccount.getRole())
+                .userId(userAccount.getId())
                 .localDate(userAccount.getDate())
                 .build();
     }

@@ -4,12 +4,9 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import tentech.healthcheck.model.enums.Role;
 
 import java.time.LocalDate;
-
 
 @Data
 @Builder
