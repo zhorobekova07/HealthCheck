@@ -15,8 +15,8 @@ public class AuthMapper {
         return UserAccountResponse.builder()
                 .id(userAccount.getId())
                 .role(userAccount.getRole())
-                .email(userAccount.getEmail())
                 .phoneNumber(userAccount.getPhoneNumber())
+                .email(userAccount.getEmail())
                 .localDate(LocalDate.now())
                 .build();
     }
