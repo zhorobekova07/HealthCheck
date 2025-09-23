@@ -47,11 +47,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/api/auth/sign-up", "/api/auth/login","/api/user/save","/api/contact/save").permitAll()
+                    authorize.requestMatchers("/api/auth/sign-up", "/api/auth/login", "/api/user/save", "/api/contact/save").permitAll()
                             .requestMatchers("/api/auth/**").hasRole("ADMIN")
                             .requestMatchers(
-                                    "/v3/api-docs/",
-                                    "/swagger-ui/",
+                                    "/v3/api-docs/**",
+                                    "/swagger-ui/**",
                                     "/swagger-ui.html"
                             ).permitAll()
                             .anyRequest().authenticated();
