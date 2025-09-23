@@ -14,8 +14,6 @@ import java.util.List;
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
     @Query("select user_account from UserAccount user_account where user_account.email=:email")
     UserAccount findByEmail(@Param("email") String email);
-
-    List<UserAccount> searchAndPagination(String upperCase, Pageable pageable);
 }
 
 
