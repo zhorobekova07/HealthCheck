@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tentech.healthcheck.model.dto.UserAccountResponse;
 import tentech.healthcheck.service.UserAccountService;
+
 import java.util.List;
 
 @RestController
@@ -25,7 +26,6 @@ public class UserAccountController {
 
     @GetMapping("/findById/{id}")
     public UserAccountResponse findById(@PathVariable("id") Long id) {
-
         return userAccountService.findById(id);
     }
 
