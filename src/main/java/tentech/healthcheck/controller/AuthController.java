@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tentech.healthcheck.model.dto.*;
 import tentech.healthcheck.service.AuthService;
+import tentech.healthcheck.serviceImpl.EmailService;
+
 @Tag(name = "User Controller")
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ import tentech.healthcheck.service.AuthService;
 public class AuthController {
 
     private final AuthService authService;
+    private final EmailService emailService;
 
     @Operation(summary = "Этот метод сохраняет Пользователя" ,description = "Создает и возвращает пользователя")
     @PostMapping("/sign-up")
@@ -28,19 +31,14 @@ public class AuthController {
     public LoginResponse login(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);
     }
+
     @PostMapping("/sendMail")
-    public String
-    sendMail(@RequestBody EmailRequest details) {
-        String status
-                = authService.sendSimpleMail(details);
-        return status;
+    public String sendMail(@RequestBody EmailRequest details) {
+        return emailService.sendSimpleMail(details);
     }
 
     @PostMapping("/sendMailWithAttachment")
-    public String sendMailWithAttachment(
-            @RequestBody EmailRequest details) {
-        String status
-                = authService.sendMailWithAttachment(details);
-        return status;
+    public String sendMailWithAttachment(@RequestBody EmailRequest details) {
+        return emailService.sendMailWithAttachment(details);
     }
 }
