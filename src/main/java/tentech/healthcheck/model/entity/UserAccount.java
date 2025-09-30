@@ -1,4 +1,5 @@
 package tentech.healthcheck.model.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -6,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import tentech.healthcheck.model.enums.Role;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,6 +37,9 @@ public class UserAccount implements UserDetails {
 
     private LocalDate date;
 
+    @Column(name = "reset_code")
+    private Long resetCode;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -45,7 +50,7 @@ public class UserAccount implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+        authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         return authorities;
     }
 
