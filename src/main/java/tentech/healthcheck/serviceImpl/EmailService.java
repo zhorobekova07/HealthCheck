@@ -9,6 +9,4 @@ public interface EmailService {
 
     String sendSimpleMail(EmailRequest emailRequest);
 
-    String sendMailWithAttachment(EmailRequest emailRequest);
-
 }

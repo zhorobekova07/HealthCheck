@@ -3,7 +3,6 @@ package tentech.healthcheck.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,9 +19,10 @@ import tentech.healthcheck.repository.UserAccountRepository;
 import tentech.healthcheck.security.jwt.JwtTokenUtil;
 import tentech.healthcheck.serviceImpl.EmailService;
 
-import java.io.File;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -70,75 +70,76 @@ public class AuthService implements EmailService {
         return authMapper.mapToList(userAccounts);
     }
 
+    private Long generateRandomCode() {
+        SecureRandom random = new SecureRandom();
+        Long code = 10000000 + random.nextLong(90000000); // От 10000000 до 99999999
+        return code;
+    }
+
     public String sendSimpleMail(EmailRequest details) {
         try {
+            Long code = generateRandomCode();
+
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setFrom(sender);
             mailMessage.setTo(details.getRecipient());
-            mailMessage.setText(details.getMsgBody());
-            mailMessage.setSubject(details.getSubject());
+            mailMessage.setText("Ваш код: " + code);
+
             javaMailSender.send(mailMessage);
-            return "Mail Sent Successfully...";
+            return "Mail Sent Successfully with code: " + code;
         } catch (Exception e) {
+            e.printStackTrace();
             return "Error while Sending Mail";
         }
     }
 
-    public String
-    sendMailWithAttachment(EmailRequest details) {
-        MimeMessage mimeMessage
-                = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper;
-        try {
-            mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-            mimeMessageHelper.setFrom(sender);
-            mimeMessageHelper.setTo(details.getRecipient());
-            mimeMessageHelper.setText(details.getMsgBody());
-            mimeMessageHelper.setSubject(
-                    details.getSubject());
-            FileSystemResource file =
-                    new FileSystemResource(
-                            new File(details.getAttachment()));
-            mimeMessageHelper.addAttachment(
-                    file.getFilename(), file);
-            javaMailSender.send(mimeMessage);
-            return "Mail sent Successfully";
-        } catch (MessagingException e) {
-            return "Error while sending mail!!!";
+    // Метод для сброса пароля с проверкой resetCode
+    public String setNewPassword(String email, Long resetCode, String newPassword, String confirmPassword) {
+        UserAccount user = userAccountRepository.findByEmail(email);
+//                .orElseThrow(() -> new RuntimeException("User with: " + email + " not found!"));
+
+
+        if (resetCode.equals(user.getResetCode())) {
+            if (newPassword.equals(confirmPassword)) {
+                user.setPassword(passwordEncoder.encode(newPassword));
+            } else {
+                throw new RuntimeException("not matches");
+            }
+        } else {
+            throw new RuntimeException("code not correct");
         }
+
+        if (!newPassword.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*._-]).{8,}$")) {
+            throw new RuntimeException("Invalid password format");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userAccountRepository.save(user);
+        return "New password set successfully, please login with the new password";
     }
 
+    // Метод для отправки кода сброса пароля
+    public void sendResetCodeForPassword(String email) throws MessagingException {
+        UserAccount user = userAccountRepository.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("User with email " + email + " not found");
+        }
 
-//    public String setNewPassword(String email, Long resetCode, String newPassword, String confirmPassword) {
-//        UserAccount user = userAccountRepository.findByEmail(email)
-//                .orElseThrow(() -> new RuntimeException("User with: "+email+" not found !"));
-//        if (resetCode.equals(user.get())) {
-//            if (newPassword.equals(confirmPassword)) {
-//                user.setPassword(passwordEncoder.encode(newPassword));
-//            } else {
-//                throw new IncorrectCodeException("The password does not match !");
-//            }
-//        } else {
-//            throw new IncorrectCodeException("The code does not match");
-//        }
-//        userRepository.save(user);
-//        return "New password set successfully login with this password";
-//    }
+        Long resetCode = user.getResetCode();
+        if (resetCode == null) {
+            // Генерируем новый resetCode, если он отсутствует
+            resetCode = generateRandomCode();
+            user.setResetCode(resetCode);
+            userAccountRepository.save(user);
+        }
 
-//    public void sendResetCodeForPassword(String email) throws MessagingException {
-//        UserAccount user = userAccountRepository.findByEmail(email);
-////                .orElseThrow(() -> new ChangeSetPersister.NotFoundException("User with: " + email + " not found !"));
-//
-//        Long strCode = user.getResetCode();
-//        userAccountRepository.save(user);
-//
-//        MimeMessage mimeMessage = MailSender.createMimeMessage();
-//        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-//        mimeMessageHelper.setTo(email);
-//        mimeMessageHelper.setSubject("Set Password");
-//        mimeMessageHelper.setText("Your reset code: " + strCode);
-//
-//        javaMailSender.send(mimeMessage);
-//    }
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+        mimeMessageHelper.setTo(email);
+        mimeMessageHelper.setSubject("Set Password");
+        mimeMessageHelper.setText("Your reset code: " + resetCode);
+
+        javaMailSender.send(mimeMessage);
+    }
 }
 
